@@ -20,7 +20,7 @@ export const WINSTON_CONFIG: WinstonModuleAsyncOptions = {
             : 'silly',
         format: winston.format.combine(
           winston.format.timestamp(),
-          nestWinstonModuleUtilities.format.nestLike('MOHAE', {
+          nestWinstonModuleUtilities.format.nestLike('TOTEE', {
             prettyPrint: true,
           }),
         ),
