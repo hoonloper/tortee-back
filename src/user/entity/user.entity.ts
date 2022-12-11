@@ -29,7 +29,7 @@ export class User {
   @Column({ type: 'varchar' })
   email: string;
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar' })
   password: string;
 
   @Column({ type: 'boolean', name: 'is_mentorship' })
