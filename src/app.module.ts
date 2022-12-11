@@ -10,6 +10,7 @@ import { UserModule } from './user/user.module';
 import { ChatroomModule } from './chatroom/chatroom.module';
 import { PermissionModule } from './permission/permission.module';
 import { FriendModule } from './friend/friend.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { FriendModule } from './friend/friend.module';
     ChatroomModule,
     PermissionModule,
     FriendModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],

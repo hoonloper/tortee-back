@@ -11,25 +11,28 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 @Entity('users')
 export class User {
-  @PrimaryGeneratedColumn()
-  idx: number;
+  @PrimaryColumn({ type: 'varchar', unique: true })
+  idx: string;
 
   @Column({ type: 'varchar' })
   name: string;
 
   @Column({ type: 'varchar' })
-  nickname: string;
-
-  @Column({ type: 'varchar' })
   email: string;
 
-  @Column({ type: 'boolean', name: 'is_mentorship' })
+  @Column({ type: 'varchar', name: 'base_url', nullable: true })
+  baseUrl: string;
+
+  @Column({ type: 'varchar', name: 'access_token', nullable: true })
+  accessToken: string;
+
+  @Column({ type: 'boolean', name: 'is_mentorship', default: 0 })
   isMentorship: boolean;
 
   @CreateDateColumn({
