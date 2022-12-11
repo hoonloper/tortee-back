@@ -1,28 +1,32 @@
-import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
-import { User } from 'src/user/entity/user.entity';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
-import { AuthService } from './auth.service';
-import SignInDto from './dtos/sign-in.dto';
-import SignUpDto from './dtos/sign-up.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { CurrentUser } from './decorator/current-user.decorator';
+import { CurrentUserDto } from './dtos/current-user.dto';
+import { InsertResult } from 'typeorm';
+import { User } from 'src/user/entity/user.entity';
 
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly userService: UserService,
-  ) {}
+  constructor(private readonly userService: UserService) {}
 
-  @Post('sign-up')
-  async signUp(@Body() user: SignUpDto): Promise<SignUpDto> {
-    const findedUser: User = await this.userService.findUser(user.email);
-    if (findedUser) {
-      throw new BadRequestException('이미 존재하는 이메일');
-    }
-    return await this.authService.signUp(user);
+  @Get('google')
+  @UseGuards(AuthGuard('google'))
+  googleAuth(): void {
+    // redirect google login page
+    return;
   }
 
-  @Post('sign-in')
-  async signIn(@Body() user: SignInDto): Promise<any> {
-    return await this.authService.signIn(user);
+  @Get('google/callback')
+  @UseGuards(AuthGuard('google'))
+  async googleAuthCallback(
+    @CurrentUser() user: CurrentUserDto,
+  ): Promise<User | InsertResult> {
+    const findedUser: User = await this.userService.findUser(user.email);
+    if (findedUser) {
+      return findedUser;
+    }
+    const { raw }: InsertResult = await this.userService.saveUser(user);
+    return { ...user, ...raw[0] };
   }
 }
