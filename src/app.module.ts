@@ -6,6 +6,10 @@ import { POSTGRESQL_CONFIG } from './common/configs/postgresql.config';
 import { WINSTON_CONFIG } from './common/configs/winston.config';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { ChatModule } from './chat/chat.module';
+import { UserModule } from './user/user.module';
+import { ChatroomModule } from './chatroom/chatroom.module';
+import { PermissionModule } from './permission/permission.module';
+import { FriendModule } from './friend/friend.module';
 
 @Module({
   imports: [
@@ -13,6 +17,10 @@ import { ChatModule } from './chat/chat.module';
     TypeOrmModule.forRootAsync(POSTGRESQL_CONFIG),
     WinstonModule.forRootAsync(WINSTON_CONFIG),
     ChatModule,
+    UserModule,
+    ChatroomModule,
+    PermissionModule,
+    FriendModule,
   ],
   controllers: [],
   providers: [],
