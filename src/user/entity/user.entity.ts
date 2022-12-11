@@ -29,6 +29,9 @@ export class User {
   @Column({ type: 'varchar' })
   email: string;
 
+  @Column({ type: 'varchar', nullable: true })
+  password: string;
+
   @Column({ type: 'boolean', name: 'is_mentorship' })
   isMentorship: boolean;
 

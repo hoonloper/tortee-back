@@ -9,4 +9,8 @@ export class UserService {
     @InjectRepository(User)
     private userRepository: Repository<User>,
   ) {}
+
+  findUser(email: string) {
+    return this.userRepository.findOne({ where: { email } });
+  }
 }
