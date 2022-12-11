@@ -33,15 +33,11 @@ export class Chatroom {
   })
   deletedAt: Date | null;
 
-  @ManyToOne(() => User, (user) => user, {
-    onUpdate: 'CASCADE',
-  })
+  @ManyToOne(() => User, (user) => user.chatroomMentors, {})
   @JoinColumn({ name: 'mentor_idx' })
   mentorIdx: User;
 
-  @ManyToOne(() => User, (user) => user, {
-    onDelete: 'CASCADE',
-  })
+  @ManyToOne(() => User, (user) => user.chatroomMentees, {})
   @JoinColumn({ name: 'mentee_idx' })
   menteeIdx: User;
 }

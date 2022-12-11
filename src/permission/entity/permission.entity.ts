@@ -1,7 +1,9 @@
+import { User } from 'src/user/entity/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -18,4 +20,7 @@ export class Permission {
     comment: '생성일',
   })
   createdAt: Date;
+
+  @OneToMany(() => User, (user) => user.permissionIdx)
+  users: User[];
 }

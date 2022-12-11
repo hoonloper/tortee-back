@@ -29,15 +29,11 @@ export class MentorRequest {
   })
   deletedAt: Date | null;
 
-  @ManyToOne(() => User, (user) => user, {
-    onUpdate: 'CASCADE',
-  })
+  @ManyToOne(() => User, (user) => user.requestUsers, {})
   @JoinColumn({ name: 'request_user_idx' })
   requestUserIdx: User;
 
-  @ManyToOne(() => User, (user) => user, {
-    onDelete: 'CASCADE',
-  })
+  @ManyToOne(() => User, (user) => user.responseUsers, {})
   @JoinColumn({ name: 'response_user_idx' })
   responseUserIdx: User;
 }

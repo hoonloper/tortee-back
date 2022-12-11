@@ -22,15 +22,11 @@ export class Chat {
   })
   createdAt: Date;
 
-  @ManyToOne(() => User, (user) => user, {
-    onUpdate: 'CASCADE',
-  })
+  @ManyToOne(() => User, (user) => user, {})
   @JoinColumn({ name: 'sended_user_idx' })
   sendedUserIdx: User;
 
-  @ManyToOne(() => User, (user) => user, {
-    onUpdate: 'CASCADE',
-  })
+  @ManyToOne(() => User, (user) => user, {})
   @JoinColumn({ name: 'received_user_idx' })
   receivedUserIdx: User;
 }

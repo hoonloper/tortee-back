@@ -4,6 +4,7 @@ import { Chat } from 'src/chat/entity/chat.entity';
 import { Chatroom } from 'src/chatroom/entity/chatroom.entity';
 import { Friend } from 'src/friend/entities/firend.entity';
 import { MentorRequest } from 'src/friend/entities/mentor-requests.entity';
+import { Permission } from 'src/permission/entity/permission.entity';
 import { User } from 'src/user/entity/user.entity';
 
 export const POSTGRESQL_CONFIG: TypeOrmModuleAsyncOptions = {
@@ -19,6 +20,6 @@ export const POSTGRESQL_CONFIG: TypeOrmModuleAsyncOptions = {
     database: configService.get<string>('DB_DATABASE'),
     synchronize: configService.get<boolean>('DB_SYNCHRONIZE'),
     logging: configService.get<boolean>('DB_LOGGING'),
-    entities: [User, Friend, MentorRequest, Chatroom, Chat],
+    entities: [User, Friend, MentorRequest, Chatroom, Chat, Permission],
   }),
 };

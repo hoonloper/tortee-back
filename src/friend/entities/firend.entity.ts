@@ -29,15 +29,11 @@ export class Friend {
   })
   deletedAt: Date | null;
 
-  @ManyToOne(() => User, (user) => user, {
-    onUpdate: 'CASCADE',
-  })
+  @ManyToOne(() => User, (user) => user.friendMentors, {})
   @JoinColumn({ name: 'mentor_idx' })
   mentorIdx: User;
 
-  @ManyToOne(() => User, (user) => user, {
-    onDelete: 'CASCADE',
-  })
+  @ManyToOne(() => User, (user) => user.friendMentees, {})
   @JoinColumn({ name: 'mentee_idx' })
   menteeIdx: User;
 }
