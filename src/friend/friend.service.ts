@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { InsertResult, Repository } from 'typeorm';
+import SendMentorRequestDto from './dtos/send-mentor-request.dto';
 import { Friend } from './entities/firend.entity';
 import { MentorRequest } from './entities/mentor-requests.entity';
 
@@ -12,4 +13,13 @@ export class FriendService {
     @InjectRepository(MentorRequest)
     private mentorRequestRepository: Repository<MentorRequest>,
   ) {}
+
+  sendMentorRequest(sendMentorRequest): Promise<InsertResult> {
+    return this.mentorRequestRepository
+      .createQueryBuilder()
+      .insert()
+      .into(MentorRequest)
+      .values(sendMentorRequest)
+      .execute();
+  }
 }
