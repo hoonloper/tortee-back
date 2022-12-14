@@ -1,4 +1,10 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  UseGuards,
+} from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import { AuthGuard } from '@nestjs/passport';
 import { CurrentUser } from './decorator/current-user.decorator';
@@ -10,6 +16,7 @@ import { User } from 'src/user/entity/user.entity';
 export class AuthController {
   constructor(private readonly userService: UserService) {}
 
+  @HttpCode(HttpStatus.MOVED_PERMANENTLY)
   @Get('google')
   @UseGuards(AuthGuard('google'))
   googleAuth(): void {
@@ -17,6 +24,7 @@ export class AuthController {
     return;
   }
 
+  @HttpCode(HttpStatus.OK)
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
   async googleAuthCallback(
