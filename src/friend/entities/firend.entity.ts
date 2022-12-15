@@ -14,7 +14,7 @@ export class Friend {
   @PrimaryGeneratedColumn()
   idx: number;
 
-  @Column({ type: 'boolean', name: 'is_connected' })
+  @Column({ type: 'boolean', name: 'is_connected', default: 0 })
   isConnected: boolean;
 
   @CreateDateColumn({

@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { InsertResult, Repository } from 'typeorm';
-import SendMentorRequestDto from './dtos/send-mentor-request.dto';
 import { Friend } from './entities/firend.entity';
 import { MentorRequest } from './entities/mentor-requests.entity';
 
@@ -29,5 +28,28 @@ export class FriendService {
       .select()
       .where('fr.responseUserIdx = :idx', { idx })
       .getMany();
+  }
+
+  async addFriendRequest(
+    { idx },
+    { friendRequestUserIdx, requestIdx },
+  ): Promise<InsertResult> {
+    // 유저 아이디랑 요청 아이디 데이터 있는지 확인
+
+    // 일치하는 데이터 있으면 삭제
+    const deletedResult = await this.mentorRequestRepository
+      .createQueryBuilder()
+      .delete()
+      .from(MentorRequest)
+      .where('mentor_requests.idx = :requestIdx', { requestIdx })
+      .execute();
+
+    // 친구 목록에 추가
+    return await this.friendRepository
+      .createQueryBuilder()
+      .insert()
+      .into(Friend)
+      .values({ mentorIdx: idx, menteeIdx: friendRequestUserIdx })
+      .execute();
   }
 }

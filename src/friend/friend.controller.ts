@@ -35,7 +35,22 @@ export class FriendController {
   @UseGuards(AuthGuard('google'))
   @HttpCode(HttpStatus.OK)
   @Get('request-list')
-  async getFriendRequestList(@CurrentUser() { idx }: CurrentUserDto) {
+  async getFriendRequestList(
+    @CurrentUser() { idx }: CurrentUserDto,
+  ): Promise<any> {
     return await this.friendService.getFriendRequestList(idx);
+  }
+
+  @UseGuards(AuthGuard('google'))
+  @HttpCode(HttpStatus.CREATED)
+  @Post('acceptance')
+  async addFriendRequest(
+    @CurrentUser() currentUser: CurrentUserDto,
+    @Body() friendRequest,
+  ): Promise<any> {
+    return await this.friendService.addFriendRequest(
+      currentUser,
+      friendRequest,
+    );
   }
 }
