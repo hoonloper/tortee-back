@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
@@ -28,5 +29,13 @@ export class FriendController {
       requestUserIdx: idx,
       ...sendMentorRequest,
     });
+  }
+
+  /* 이 아래부터 미테스트 API 목록 */
+  @UseGuards(AuthGuard('google'))
+  @HttpCode(HttpStatus.OK)
+  @Get('request-list')
+  async getFriendRequestList(@CurrentUser() { idx }: CurrentUserDto) {
+    return await this.friendService.getFriendRequestList(idx);
   }
 }

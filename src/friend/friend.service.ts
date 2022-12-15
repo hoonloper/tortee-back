@@ -22,4 +22,12 @@ export class FriendService {
       .values(sendMentorRequest)
       .execute();
   }
+
+  getFriendRequestList(idx: string): Promise<MentorRequest[]> {
+    return this.mentorRequestRepository
+      .createQueryBuilder('fr')
+      .select()
+      .where('fr.responseUserIdx = :idx', { idx })
+      .getMany();
+  }
 }
